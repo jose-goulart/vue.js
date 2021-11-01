@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <title>Vue.js</title>
+</head>
+<style>
+    .verde {
+        color: green;
+    }
+
+    .vermelho {
+        color: red;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <p>Company Name: <span
+                :class="stocks.apple.marketCap > stocks.google.marketCap ? 'verde' : 'vermelho'">{{stocks.apple.companyName}}</span>
+        </p>
+        <p>Market Cap.: {{stocks.apple.marketCap}}</p>
+        <p>Company Name: <span
+                :class="stocks.google.marketCap > stocks.apple.marketCap ? 'verde' : 'vermelho'">{{stocks.google.companyName}}</span>
+        </p>
+        <p>Market Cap.: {{stocks.google.marketCap}}</p>
+        <button @click="runApiFunction">Puxar Dados</button>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                stocks: {
+                    apple: {},
+                    google: {},
+                }
+            },
+            methods: {
+                getAppleData() {
+                    fetch("https://api.origamid.dev/stock/aapl/quote")
+                        .then(r => r.json())
+                        .then(data => {
+                            this.stocks.apple = data;
+                        });
+                },
+                getGoogleData() {
+                    fetch("https://api.origamid.dev/stock/googl/quote")
+                        .then(r => r.json())
+                        .then(data => {
+                            this.stocks.google = data;
+                        });
+                },
+                runApiFunction() {
+                    this.getAppleData();
+                    this.getGoogleData();
+                }
+            }
+
+        });
+    </script>
+    <!--
+  Utilizando as API's
+  https://api.origamid.dev/stock/aapl/quote
+  https://api.origamid.dev/stock/googl/quote
+
+  - Compare o marketCap (valor de
+  mercado) entre ambas.
+
+  - Mostre o nome das empresas e o valor
+  na interace (companyName e marketCap).
+
+  - Mude a cor para verde o nome da empresa com
+  maior marketCap e vermelho a com menor.
+-->
+</body>
+
+</html>
