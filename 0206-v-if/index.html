@@ -15,7 +15,7 @@
         <button v-show="estoqueArroz" @click="adicionarItem">+</button>
         <button v-show="carrinho" @click="removerItem">-</button>
         <p>Carrinho: {{carrinho}}</p>
-        <p v-show="estoqueArroz == 0">Não temos mais arroz em estoque</p>
+        <p v-show="estoqueArroz == 0">Não temos mais arroz em estoque.</p>
     </div>
     <script>
         const vm = new Vue({
