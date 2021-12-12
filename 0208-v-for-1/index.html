@@ -11,12 +11,26 @@
 
 <body>
     <div id="app">
+        <ul>
+            <li v-for="item in lista">{{item}}</li>
+        </ul>
+        <button @click="removerItem">Remover</button>
+        <button @click="mudarItem">Mudar</button>
     </div>
     <script>
         const vm = new Vue({
             el: "#app",
             data: {
-                
+                lista: ["Item 1", "Item 2", "Item 3"]
+            },
+            methods: {
+                removerItem() {
+                    this.lista.pop(); // Ativa reatividade
+                },
+                mudarItem() {
+                    // this.lista[0] = "Banana"; // Não ativa reatividade
+                    this.$set(this.lista, 0, "Banana"); // Ativa reatividade
+                }
             }
         });
     </script>
