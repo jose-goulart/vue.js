@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <title>Vue.js</title>
+</head>
+
+<body>
+    <div id="app">
+        <p v-for="carro in carrosAzuis">{{carro.marca}}</p>
+
+        <input type="text" v-model="cep" placeholder="Cep" maxlength="8" />
+        <ul>
+            <li v-for="(valor, chave) in endereco">{{chave}}: {{valor}}</li>
+        </ul>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                carros: [
+                    {
+                        marca: "VW",
+                        cor: "Azul"
+                    },
+                    {
+                        marca: "Ford",
+                        cor: "Preto"
+                    },
+                    {
+                        marca: "Tesla",
+                        cor: "Azul"
+                    }
+                ],
+                cep: "",
+                endereco: {}
+            },
+            computed: {
+                carrosAzuis() {
+                    return this.carros.filter(({ cor }) => cor === "Azul");
+                }
+            },
+            watch: {
+                cep(valor) {
+                    if (valor.length === 8) {
+                        fetch(`https://viacep.com.br/ws/${valor}/json/`)
+                            .then(r => r.json())
+                            .then(r => {
+                                this.endereco = r;
+                            });
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
