@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script> -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Vue.js</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- {{nomecompleto}} -->
+        <!-- {{countries}} -->
+        <div id="country">
+            <ul style="list-style: none;">
+                <li>
+                    País: {{selected}}
+                </li>
+                <li>
+                    Capital: {{capital}}
+                </li>
+            </ul>
+        </div>
+        <select name="countries" id="countries" v-model="selected">
+            <option disabled value="">Please select one</option>
+            <option v-for="({name}, index) in allCountries" :key="index" :value="name">{{name}}</option>
+        </select>
+    </div>
+    <script>
+        const vm = {
+            data() {
+                return {
+                    name: "José",
+                    lastName: "Goulart",
+                    allCountries: {},
+                    selected: "",
+                    capital: ""
+                }
+            },
+            methods: {
+                getData(url) {
+                    fetch(url)
+                        .then(res => res.json())
+                        .then(res => {
+                            this.allCountries = res
+                        })
+                }
+            },
+            computed: {
+                nomecompleto() {
+                    return this.name + " " + this.lastName
+                }
+            },
+            watch: {
+                selected(newValue) {
+                    this.allCountries.find(country => {
+                        if (country.name == newValue) {
+                            this.capital = country.capital
+                        }
+                    })
+                }
+            },
+            beforeMount() {
+                this.getData("https://restcountries.com/v2/all")
+            },
+        };
+        Vue.createApp(vm).mount('#app')
+    </script>
+    <!--
+  Você possui o nome e sobrenome do usuário em data,
+  crie uma propriedade computed que retorne o nome completo
+  
+  Utilize a rest API para puxar as capitais dos paises
+  Use um campo de select, onde o usuário pode selecionar o país.
+  https://restcountries.eu/rest/v2/all
+
+  Com uma função watch, mude a capital de acordo com o país selecionado:
+
+  Ex de campo select:
+
+  <select name="paises" id="paises" v-model="selecionado">
+    <option v-for="pais in paises" :value="pais.name">
+      {{pais.name}}
+    </option>
+  </select>
+-->
+</body>
+
+</html>
