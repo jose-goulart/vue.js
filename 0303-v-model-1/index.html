@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Vue.js</title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <input v-model="nome" />
+            <textarea v-model="mensagem"></textarea>
+            <p>{{nome}}</p>
+            <p>{{mensagem}}</p>
+        </div>
+        <div>
+            <input v-model="texto" />
+            <input :value="texto" />
+            <p>{{texto}}</p>
+        </div>
+        <div>
+            <input type="checkbox" v-model="receberEmail" id="receberEmail" />
+            <label for="receberEmail">Receber Email</label><br />
+            <input type="checkbox" v-model="termos" id="termos" />
+            <label for="termos">Termos e Condições</label>
+            <p>receberEmail: {{receberEmail}}</p>
+            <p>termos: {{termos}}</p>
+        </div>
+        <div>
+            <input type="radio" v-model="cor" value="Azul" id="azul" />
+            <label for="azul">Azul</label><br />
+            <input type="radio" v-model="cor" value="Vermelho" id="vermelho" />
+            <label for="vermelho">Vermelho</label>
+            <p>cor: {{cor}}</p>
+        </div>
+        <div>
+            <select v-model="fruta">
+                <option disabled value="">Selecione uma fruta</option>
+                <option value="banana">Banana</option>
+                <option value="morango">Morango</option>
+                <option value="uva">Uva</option>
+            </select>
+            <p>fruta: {{fruta}}</p>
+        </div>
+        <div>
+            <textarea v-model.lazy="mensagem"></textarea>
+            <input v-model.number="total" />
+            <input v-model.trim="email" />
+        </div>
+    </div>
+    <script>
+        const vm = {
+            data() {
+                return {
+                    nome: "",
+                    mensagem: "",
+                    texto: "",
+                    receberEmail: true,
+                    termos: false,
+                    cor: "",
+                    fruta: "",
+                    total: 0,
+                    email: ""
+                }
+            }
+        };
+        Vue.createApp(vm).mount('#app')
+    </script>
+</body>
+
+</html>
