@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Vue.js</title>
+</head>
+
+
+<body>
+    <div id="app">
+        <form action="">
+            <label for="nome">Nome: </label>
+            <input v-model="nome" type="text" name="nome" id="nome" />
+            <br>
+            <label for="email">E-mail: </label>
+            <input v-model="email" type="text" name="email" id="email" />
+            <br>
+            <label for="telefone">Telefone: </label>
+            <input v-model="telefone" type="text" name="telefone" id="telefone" />
+            <br>
+            <label for="mensagem">Mensagem: </label>
+            <textarea v-model="mensagem" type="textarea" name="mensagem" id="mensagem" cols="20" rows="5"></textarea>
+            <button @click.prevent="enviarForm">Enviar</button>
+        </form>
+        <div>
+            <ul>
+                <li v-for="(item, index) in output" :key="index">{{item}}</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const vm = {
+            data() {
+                return {
+                    nome: "",
+                    email: "",
+                    telefone: "",
+                    mensagem: "",
+                    output: {}
+                }
+            },
+            methods: {
+                enviarForm() {
+                    this.output = {
+                        nome: this.nome,
+                        email: this.email,
+                        telefone: this.telefone,
+                        mensagem: this.mensagem,
+                    }
+                }
+            }
+        };
+        Vue.createApp(vm).mount('#app')
+    </script>
+    <!-- 
+  2 - Crie um formulário com, nome, email, telefone e mensagem.
+  Ao clicar em enviar, as informações preenchidas no formulário
+  devem aparecer abaixo do mesmo. (previna o comportamento padrão do botão enviar)
+ -->
+
+</body>
+
+</html>
