@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Vue.js</title>
+</head>
+
+<body>
+    <div id="app">
+        <input @keyup="ativar" />
+        <input @keyup.enter="ativar" />
+        <input @keyup.esc="ativar" />
+        <input @keyup.up="ativar" />
+
+        <p @click="ativar">Clique</p>
+        <p @click.alt="ativar">Clique ALT</p>
+        <p @click.right="ativar">Clique ESQUERDO</p>
+        <p @click.middle="ativar">Clique MEIO</p>
+
+        <p style="position: fixed;">{{totalScroll}}</p>
+    </div>
+
+    <style>
+        body {
+            height: 2000px;
+        }
+    </style>
+
+    <script>
+        const vm = {
+            data() {
+                return {
+                    totalScroll: 0
+                }
+            },
+            methods: {
+                // ativar(event) {
+                //     event.currentTarget.style.border = "4px solid blue";
+                // }
+                ativar(event) {
+                    event.currentTarget.style.color = "blue";
+                },
+                handleScroll() {
+                    this.totalScroll = window.scrollY;
+                }
+            }, created() {
+                window.addEventListener("scroll", this.handleScroll);
+            }
+        };
+        Vue.createApp(vm).mount('#app')
+    </script>
+</body>
+
+</html>
